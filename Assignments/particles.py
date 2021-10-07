@@ -12,9 +12,9 @@ class Particle:
             - charge (in e)
             - momentum [optional] in (MeV/c) (module of momentum)
         """
-        self.name = name
-        self.mass = mass
-        self.charge = charge
+        self._name = name #non posso modificare name, cioè l'attributo è di sola lettura
+        self._mass = mass
+        self._charge = charge
         self.momentum = momentum
 
     def print_info(self):
@@ -24,10 +24,22 @@ class Particle:
         print(message.format(name=self.name, mass=self.mass, charge=self.charge, momentum=self.momentum))
 
     @property
+    def name(self):
+        return self._name
+
+    @property
+    def mass(self):
+        return self._mass
+
+    @property
+    def charge(self):
+        return self._charge
+
+    @property
     def momentum(self):
         return self._momentum
 
-    @momentum.setter
+    @momentum.setter #lo metto solo per controllare che momentum sia >0
     def momentum(self, value):
         if (value < 0):
             print('Cannot set the momentum to a negative number!')
@@ -78,6 +90,7 @@ class Proton(Particle):
 
     def __init__(self, momentum=0.):
         super().__init__(self.NAME, self.MASS, self.CHARGE, momentum)
+        #super() restituisce la classe madre della classe in cui si trova, è equivalente a scrivere Particle
 
 
 class Alpha(Particle):

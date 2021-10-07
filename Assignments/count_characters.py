@@ -47,17 +47,17 @@ def process(file_path):
     for ch, freq in freq_dict.items():
         print('{}: {:.3f}%'.format(ch, freq * 100.))
 
-
+'''
 print('If you need help type "--help" otherwise just press enter')
 
 if input()== '--help':
     print('enter path to file')
 
 process(input())
-
 '''
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=_description)
     parser.add_argument('infile', help='path to the input file')
     args = parser.parse_args()
-    process(args.infile)'''
+    process(args.infile)
