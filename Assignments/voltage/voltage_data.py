@@ -13,20 +13,18 @@ class VoltageData:
         v = numpy.array(voltages, dtype=numpy.float64)
         # Put together the arrays in a single matrix with column_stack
         self._data = numpy.column_stack([t, v])
-        self.spline = interpolate.InterpolatedUnivariateSpline(self.timestamps,
-                                                               self.voltages,
-                                                               k=3)
+        self.spline = interpolate.InterpolatedUnivariateSpline(t,v,k=3)
     @classmethod
     def from_file(cls, file_path):
         """ Alternate constructor from a data file, exploiting load_txt()"""
         t, v = numpy.loadtxt(file_path, unpack=True)
-        return cls(t, v)
+        return cls(t, v) #a differenza del costruttore questo ha un return
 
 
-    @property
+    @property #emulo l'attributo timestamps
     def timestamps(self):
         # Use the slice syntax to select the first column
-        return self._data[:, 0]
+        return self._data[:, 0] #tutte le righe, colonna 0
 
     @property
     def voltages(self):
@@ -37,7 +35,7 @@ class VoltageData:
         """ Number of measurements (or rows in the file, which is the same) """
         return len(self._data)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index):#per accedere all oggetto con prentesi quadre
         """Random access. We use composition and simply call
         __getitem__ from _data. """
         return self._data[index]
@@ -48,11 +46,18 @@ class VoltageData:
         for i in range(len(self)):
             yield self._data[i, :]
         # Also works: return iter(data)
+        #potrei anche non mettere un metodo ier e python lo genera da solo
 
     def __repr__(self):
         """ Print the full content row by row """
         # Use a generator expression
         return '\n'.join('{} {}'.format(row[0], row[1]) for row in self)
+        """ equivalente a :
+        rows=[]
+        for row in self:
+            rows.append(f'{row[0]} {row[1]}')
+        return  '\n'.join(rows)
+        """
 
     def __str__(self):
         """ Print the full content row-by-row with a nice formatting"""
@@ -72,7 +77,7 @@ class VoltageData:
        if ax is not None:
            plt.sca(ax) # sca (Set Current Axes) selects the given figure
        else:
-           ax = plt.figure('voltage_vs_time')
+           ax = plt.figure('voltage_vs_time')#creo una nuova figura
        plt.plot(self.timestamps, self.voltages, fmt, **plot_options)
        plt.xlabel('Time [s]')
        plt.ylabel('Voltage [mV]')
