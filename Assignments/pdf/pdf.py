@@ -85,6 +85,38 @@ def test_triangular():
     plt.hist(rnd, bins=200)
 
 
+def test_quadratic():
+    """Unit test with a triangular distribution.
+    """
+    x = np.linspace(0., 1., 101)
+    y = 2. * x**2
+
+    pdf = ProbabilityDensityFunction(x, y)
+    a = np.array([0.2, 0.6])
+    #__call__(x[, nu, ext]) Evaluate spline (or its nu-th derivative) at positions x
+    print(pdf(a))
+
+    plt.figure('pdf')
+    plt.plot(x, pdf(x))
+    plt.xlabel('x')
+    plt.ylabel('pdf(x)')
+
+    plt.figure('cdf')
+    plt.plot(x, pdf.cdf(x))
+    plt.xlabel('x')
+    plt.ylabel('cdf(x)')
+
+    plt.figure('ppf')
+    q = np.linspace(0., 1., 250)
+    plt.plot(q, pdf.ppf(q))
+    plt.xlabel('q')
+    plt.ylabel('ppf(q)')
+
+    plt.figure('Sampling')
+    rnd = pdf.rnd(1000000)
+    plt.hist(rnd, bins=200)
+
+
 def test_gauss(mu=0., sigma=1., support=10., num_points=500):
     """Unit test with a gaussian distribution.
     """
@@ -133,6 +165,6 @@ def test_gauss(mu=0., sigma=1., support=10., num_points=500):
 
 
 if __name__ == '__main__':
-    #test_triangular()
     test_gauss()
+    #test_quadratic()
     plt.show()
