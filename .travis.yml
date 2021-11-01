@@ -14,4 +14,4 @@ install:
   - pip install -r requirements.txt
 # command to run tests
 script:
-  - unittest
+ - python -m unittest Assignments.voltage.test_voltage_data_full.py

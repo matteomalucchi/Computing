@@ -10,13 +10,13 @@ def absolute_data_folder_path():
     subfolder will do)"""
     import os
     cwd = os.getcwd()
-    idx = cwd.rfind('cmepda')
+    idx = cwd.rfind('Assignments')
     if idx == -1:
         raise IOError('Could not locate the data folder. The test must be run\
-                      from inside the cmepda package.')
+                      from inside the Assignments package.')
     else:
-        cmepda_dir = cwd[:idx + len('cmepda')]
-    return os.path.join(cmepda_dir, 'sandbox')
+        cmepda_dir = cwd[:idx + len('Assignments')]
+    return os.path.join(cmepda_dir, 'voltage')
 
 
 class TestVoltageData(unittest.TestCase):
@@ -37,6 +37,7 @@ class TestVoltageData(unittest.TestCase):
         """ Utility function: avoid to rewrite this in each test."""
         return VoltageData(self.t, self.v), \
                VoltageData(self.t, self.v, self.v_err)
+        """return  VoltageData.from_file(self.sample_file), VoltageData.from_file(self.sample_file_with_errs)"""
 
     def test_constructor(self):
         """Test the constructor. Not that we access a private member, for
@@ -67,7 +68,7 @@ class TestVoltageData(unittest.TestCase):
         self.assertEqual(v_data_with_errs.num_columns(), 3)
 
     def _test_attributes(self, *attributes, expected_size=None):
-        """Private wrokhorse function for testing the attribute in a loop,
+        """Private workhorse function for testing the attribute in a loop,
         to be called by the actual test functions (notice the _ in front of the
         name)."""
         if expected_size is None:
@@ -75,7 +76,7 @@ class TestVoltageData(unittest.TestCase):
         for attr in attributes:
             # Test that the attribute is a numpy array
             self.assertTrue(isinstance(attr, numpy.ndarray))
-            # Test the sape: they must be 1D with the right lenght
+            # Test the shape: they must be 1D with the right lenght
             self.assertEqual(attr.shape, (expected_size, ))
 
     def test_attributes(self):
@@ -83,14 +84,14 @@ class TestVoltageData(unittest.TestCase):
         thing. In case of data without error test that the correct exception
         is raised."""
         v_data, v_data_with_errs = self.load_from_sample_arrays()
-        # Test that timestamps and voltages wrok
+        # Test that timestamps and voltages work
         self._test_attributes(v_data.timestamps,
                               v_data.voltages)
         # Test that accessing voltage_errs on a istance of the data without
         # errors trigger a AttributeError. We use a lambda function, since
         # assertRaises() requires a callable as second argument:
         # https://docs.python.org/3/library/unittest.html#unittest.TestCase.assertRaises
-        self.assertRaises(AttributeError, lambda v : v.voltage_errs, v_data)
+        self.assertRaises(AttributeError, lambda v : v.voltage_errs, v_data)#assertRaises(exc, fun, *args, **kwds). Checks that fun(*args, **kwds) raises exc
         # Test the three attributes on a istance with errors
         self._test_attributes(v_data_with_errs.timestamps,
                               v_data_with_errs.voltages,
@@ -119,7 +120,7 @@ class TestVoltageData(unittest.TestCase):
                               expected_size=v_data_with_errs.num_columns())
 
     def test_formatting(self):
-        """Test __str__ ad __repr__"""
+        """Test __str__ and __repr__"""
         v_data, v_data_with_errs = self.load_from_sample_arrays()
         # This is not very clever - we are simply printing stuff.
         # A more refined approach would require us to capture the output string
@@ -136,7 +137,7 @@ class TestVoltageData(unittest.TestCase):
         v_data, v_data_with_errs = self.load_from_sample_arrays()
         # Draw the plots into our figure
         plt.figure('test_plot')
-        ax = plt.gca()
+        ax = plt.gca()#crea gli assi della figura
         v_data.plot(ax)
         v_data_with_errs.plot(ax, fmt='r*')
         if draw:

@@ -46,7 +46,7 @@ class VoltageData:
         for i in range(len(self)):
             yield self._data[i, :]
         # Also works: return iter(data)
-        #potrei anche non mettere un metodo ier e python lo genera da solo
+        #potrei anche non mettere un metodo iter e python lo genera da solo
 
     def __repr__(self):
         """ Print the full content row by row """

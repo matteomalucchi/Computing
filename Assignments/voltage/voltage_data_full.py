@@ -49,7 +49,7 @@ class VoltageData:
 
     def num_rows(self):
         """ Number of rows."""
-        return self._data.shape[0]
+        return self._data.shape[0] #per def shape è (num righe, num colonne)
 
     def num_columns(self):
         """ Number of columns (can be 2 or 3)."""
