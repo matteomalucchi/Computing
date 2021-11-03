@@ -1,7 +1,7 @@
 import unittest
 import numpy
 
-from voltage_data_full import VoltageData
+from .voltage_data_full import VoltageData
 
 
 def absolute_data_folder_path():

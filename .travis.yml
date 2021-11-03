@@ -6,6 +6,7 @@
     "pip install -r requirements.txt"
   ],
   "script": [
-    "python -m unittest Assignments.voltage.test_voltage_data_full.py"
+    "cd Assignments",
+    "python -m unittest voltage.test_voltage_data_full"
   ]
 }
