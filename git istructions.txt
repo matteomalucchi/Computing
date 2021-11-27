@@ -1,0 +1,23 @@
+-	To push the current branch and set the remote as upstream, use:
+	(serve per pushare da un nuovo branch)
+
+	git push --set-upstream origin <branchname> 
+
+-	per eliminare branch anche su github
+	git push origin --delete <branchname> 
+
+
+-	per eliminare branch in locale
+	git branch -d <branchname> 
+
+-	per guardare branch attive
+	git branch -a
+
+-	per cambiare branch
+	git checkout <newbranch>
+
+-	per creare nuova branch
+	git branch <newbranch>
+
+
+

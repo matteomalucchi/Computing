@@ -1,7 +1,6 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 #include "fourvector.h"
-#include <string>
 #include <iostream>
 
 class Particle : public FourVector {
