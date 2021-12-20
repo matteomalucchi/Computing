@@ -1,0 +1,1 @@
+int myFunc(const std::string & s);

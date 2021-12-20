@@ -1,0 +1,10 @@
+import ROOT
+#print(ROOT.TMath::gaus(3))
+#c=ROOT.TCanvas()
+myF=ROOT.TF1("func","x*x[0]",0,4)
+h= ROOT.TH1F("h", "func", 64,0,+4)
+myF.SetParameter(0,12)
+h.FillRandom("func")
+h.Draw() 
+input()
+#h.Fit("func", "R")

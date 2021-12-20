@@ -5,17 +5,28 @@
 template <class T>
 class VectorXYZT {
     public:
+      // il primo costruttore è senza parametri per creare una cosa vuota
+      // posso creare tanti costruttori con segnatura diversa
       VectorXYZT() {}
       VectorXYZT(T  px, T  py, T  pz, T  e) :
-	      m_px(px),m_py(py), m_pz(pz), m_e(e) {}
+	      m_px(px),m_py(py), m_pz(pz), m_e(e) {
+          //nothing special to do
+        }
       //getters
       T px() const { return m_px;}
       T py() const { return m_py;}
       T pz() const { return m_pz;}
       T e() const { return m_e;}
       T pt() const { return sqrt(m_px*m_px+m_py*m_py);}
+      // così funziona lo stesso anche se cambio raprresentazione interna
+      // ad eg se tolgo m_px m_py e ci metto al loro posto gli impulsi in
+      //coordinate polari, poi ricalcolo px() py()
+      // e in questo modo la funzione pt() funziona uguale
+      // T pt() const { return sqrt(px()*px()+py()*py());}
       T m() const { return sqrt(m_e*m_e-(m_px*m_px+m_py*m_py+m_pz*m_pz));}
       
+      //il primo addendo sa già che è un istanza della classe in questione
+      //passo una const refernce perchè l'eggetto VectorXYZT è pesante
       template <class T2>
       VectorXYZT<T> operator+(const T2 & other) const {
 	      VectorXYZT ret(m_px+other.px(), m_py+other.py(),m_pz+other.pz(),m_e+other.e());
