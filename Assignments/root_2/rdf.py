@@ -1,22 +1,14 @@
 import ROOT
 rdf = ROOT.RDataFrame("Events",
-                      "root://eospublic.cern.ch//eos/root-eos/cms_opendata_2012_nanoaod/Run2012B_DoubleMuParked.root")
+                      "root://eospublic.cern.ch//eos/root-eos/cms_opendata_2012_nanoaod/Run2012B_DoubleMuParked.root");
 
 #list available columns
 print(rdf.GetColumnNames())
 
-sel0=rdf.Filter("nMuon>=2","two muons").Range(100) #restrict to first 10k events with at least two muons
+sel0=rdf.Filter("nMuon>=2","two muons").Range(10000) #restrict to first 10k events with at least two muons
 sel1=sel0.Filter("Muon_pt[0]>20","leading mu pt") 
 sel2=sel1.Filter("Muon_charge[0]*Muon_charge[1]<0","opposite charge")
-#sel0.Display().Print()
 
-#ROOT.gInterpreter
-
-
-
-
-
-"""
 #create a C++ function to compute the mass
 cppcode='''
 float mass(float pt1, float eta1, float phi1, float pt2,float eta2, float phi2)
@@ -39,4 +31,4 @@ mass.Snapshot("Events","out.root",outCols)
 
 import pandas
 print(pandas.DataFrame(mass.AsNumpy(["Dimuon_mass","event","run"])))
-"""
+

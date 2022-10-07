@@ -2,7 +2,7 @@
 #include <TTree.h>
 #include <TRandom.h>
 
-int main (){
+void write_array (){
     TFile f("SimpleTree2.root","RECREATE"); // Create file first. The TTree will be associated to it
     TTree data("tree","Example TTree"); // No need to specify column names
     float myFloats[100];
@@ -20,3 +20,7 @@ int main (){
     f.Close();
 }
 // per ogni evento ho un vettore
+
+int main (){
+    write_array();
+}

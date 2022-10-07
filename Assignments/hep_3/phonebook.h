@@ -7,7 +7,7 @@
 #include <iostream>
 #include <map>
 #include <fstream>
-#include <algorithm> 
+#include <algorithm>
 #include <sstream>
 
 class PhoneBookEntry {
@@ -21,10 +21,10 @@ class PhoneBookEntry {
         for(std::map<std::string,std::string>::const_iterator it = additionalPhones.begin();
 		it != additionalPhones.end(); it++){
 		std::cout << it->first << " " << it->second << std::endl;
-	}
+		}
      }
      // alphabetical ordering
-     bool operator<(const PhoneBookEntry & other) { return name < other.name; } 
+     bool operator<(const PhoneBookEntry & other) { return name < other.name; }
      // no data hiding, let's keep it simple
      std::string name;
      std::string phoneNumber;
@@ -39,7 +39,7 @@ class PhoneBook {
 
 	   void addEntry(const PhoneBookEntry & entry) { entries.push_back(entry);}
 
-	   std::pair<PhoneBookEntry ,bool>  findByName(const std::string name) { 
+	   std::pair<PhoneBookEntry ,bool>  findByName(const std::string name) {
 		for(size_t i=0;i<entries.size();i++){
 			if(entries[i].name == name) return std::pair<PhoneBookEntry ,bool>(entries[i],true);
 		}
@@ -54,11 +54,11 @@ class PhoneBook {
 		   std::transform(entries.begin(),entries.end(),entries.begin(), addItalianPrefix);
 	   }
        // dichiaro la funzione static perchè la chiamo in addItalianPrefixToAllNumbers
-       // e mi serve che la funzione possa esistere senza un istanza. non importa 
+       // e mi serve che la funzione possa esistere senza un istanza. non importa
        // che possa accedere ai data member del phonebook
 	   static PhoneBookEntry addItalianPrefix(const PhoneBookEntry & e){
 		PhoneBookEntry en=e;
-		if(en.phoneNumber.length() == 0) return en ; 
+		if(en.phoneNumber.length() == 0) return en ;
 		if(en.phoneNumber[0] != '+')
 		{
 			en.phoneNumber="+39"+en.phoneNumber;
@@ -102,7 +102,7 @@ class PhoneBook {
 	   void sort(){
 		std::sort(entries.begin(),entries.end());
 	   }
-	private:	   
+	private:
 	   std::vector<PhoneBookEntry> entries;
 
 
